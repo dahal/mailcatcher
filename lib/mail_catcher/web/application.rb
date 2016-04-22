@@ -18,6 +18,10 @@ module MailCatcher
       set :development, ENV["MAILCATCHER_ENV"] == "development"
       set :root, File.expand_path("#{__FILE__}/../../../..")
 
+      use Rack::Auth::Basic, "Restricted Area" do |username, password|
+        username == 'username' and password == 'password'
+      end
+
       if development?
         require "sprockets-helpers"
 
